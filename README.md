@@ -224,6 +224,14 @@ learning-assistant/
 
 ---
 
+## ⚠️ Known Limitations
+
+- **YouTube on cloud deployments**: YouTube blocks transcript requests from cloud provider IPs (Render, AWS, etc.). YouTube processing works perfectly locally; use PDF upload for deployed demos.
+- **Groq free tier**: 12K tokens/minute limit — long content is truncated to fit. Upgrade to Dev Tier for full content processing.
+- **Render free tier**: Backend sleeps after 15 min of inactivity; first request after sleep takes ~30s.
+
+---
+
 ## 📜 License
 
 MIT
