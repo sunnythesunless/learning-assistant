@@ -7,6 +7,7 @@ load_dotenv()
 class Settings:
     GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "")
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    SUPADATA_API_KEY: str = os.getenv("SUPADATA_API_KEY", "")
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
     SUPABASE_SERVICE_KEY: str = os.getenv("SUPABASE_SERVICE_KEY", "")
     HOST: str = os.getenv("HOST", "0.0.0.0")

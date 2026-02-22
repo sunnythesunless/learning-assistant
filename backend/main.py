@@ -46,6 +46,11 @@ if not settings.SUPABASE_SERVICE_KEY or settings.SUPABASE_SERVICE_KEY == "your_s
 else:
     logger.info("✅ SUPABASE_SERVICE_KEY configured")
 
+if not settings.SUPADATA_API_KEY or settings.SUPADATA_API_KEY == "your_supadata_api_key_here":
+    logger.warning("⚠️  SUPADATA_API_KEY is not set! YouTube transcripts may fail on cloud deployments.")
+else:
+    logger.info("✅ SUPADATA_API_KEY configured (YouTube transcripts will use Supadata)")
+
 logger.info(f"📌 LLM model (Groq): {settings.GROQ_MODEL}")
 logger.info(f"📌 Embedding model: {settings.EMBEDDING_MODEL}")
 logger.info(f"📌 Frontend URL: {settings.FRONTEND_URL}")
