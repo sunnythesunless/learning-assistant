@@ -25,7 +25,7 @@ class Settings:
     MAX_CHAT_HISTORY: int = 6
 
     # LLM settings (Groq for generation, Gemini for embeddings)
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL: str = "llama-3.1-8b-instant"   
     EMBEDDING_MODEL: str = "gemini-embedding-001"
     TEMPERATURE: float = 0.2
 
