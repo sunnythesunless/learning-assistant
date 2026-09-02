@@ -25,7 +25,7 @@ class Settings:
     MAX_CHAT_HISTORY: int = 6
 
     # LLM settings (Groq for generation, Gemini for embeddings)
-    GROQ_MODEL: str = "openai/gpt-oss-20b"   
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
     EMBEDDING_MODEL: str = "gemini-embedding-001"
     TEMPERATURE: float = 0.2
 

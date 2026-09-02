@@ -61,6 +61,7 @@ def generate_quiz(session_id: str, count: int = 8) -> list[dict]:
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=settings.TEMPERATURE,
+                response_format={"type": "json_object"},
             )
 
             raw_text = response.choices[0].message.content.strip()
@@ -71,7 +72,19 @@ def generate_quiz(session_id: str, count: int = 8) -> list[dict]:
                 if raw_text.endswith("```"):
                     raw_text = raw_text[:-3].strip()
 
-            questions = json.loads(raw_text)
+            parsed = json.loads(raw_text)
+
+            # Handle both {"questions": [...]} wrapper and direct [...] array
+            if isinstance(parsed, dict):
+                questions = None
+                for v in parsed.values():
+                    if isinstance(v, list):
+                        questions = v
+                        break
+                if questions is None:
+                    raise ValueError("JSON object does not contain a list of questions")
+            else:
+                questions = parsed
 
             # Validate structure
             if not isinstance(questions, list) or len(questions) == 0:

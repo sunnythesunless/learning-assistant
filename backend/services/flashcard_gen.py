@@ -62,6 +62,7 @@ def generate_flashcards(session_id: str, count: int = 12) -> list[dict]:
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=settings.TEMPERATURE,
+                response_format={"type": "json_object"},
             )
 
             raw_text = response.choices[0].message.content.strip()
@@ -72,7 +73,20 @@ def generate_flashcards(session_id: str, count: int = 12) -> list[dict]:
                 if raw_text.endswith("```"):
                     raw_text = raw_text[:-3].strip()
 
-            flashcards = json.loads(raw_text)
+            parsed = json.loads(raw_text)
+
+            # Handle both {"flashcards": [...]} wrapper and direct [...] array
+            if isinstance(parsed, dict):
+                # Find the first list value in the dict
+                flashcards = None
+                for v in parsed.values():
+                    if isinstance(v, list):
+                        flashcards = v
+                        break
+                if flashcards is None:
+                    raise ValueError("JSON object does not contain a list of flashcards")
+            else:
+                flashcards = parsed
 
             # Validate structure
             if not isinstance(flashcards, list) or len(flashcards) == 0:
